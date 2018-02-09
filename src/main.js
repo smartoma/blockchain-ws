@@ -1,10 +1,11 @@
 const SHA256 = require("crypto-js/sha256");
+const moment = require("moment");
 
 class Block {
-    constructor(index, timestamp, data, previousHash = '') {
+    constructor(index, data, previousHash = '') {
         this.index = index;
         this.previousHash = previousHash;
-        this.timestamp = timestamp;
+        this.timestamp = moment().format();
         this.data = data;
         this.hash = this.calculateHash();
     }
@@ -17,11 +18,11 @@ class Block {
 
 class Blockchain{
     constructor() {
-        this.chain = [this.createGenesisBlock()];
+        this.chain = [Blockchain.createGenesisBlock()];
     }
 
-    createGenesisBlock() {
-        return new Block(0, "01/01/2017", "Genesis block", "0");
+    static createGenesisBlock() {
+        return new Block(0, "Genesis block", "0");
     }
 
     getLatestBlock() {
@@ -50,19 +51,21 @@ class Blockchain{
 
         return true;
     }
+
+    printOut() {
+      console.log(JSON.stringify(this, null, 2));
+    }
 }
 
-let savjeeCoin = new Blockchain();
-savjeeCoin.addBlock(new Block(1, "20/07/2017", { amount: 4 }));
-savjeeCoin.addBlock(new Block(2, "20/07/2017", { amount: 8 }));
+let myChain = new Blockchain();
+myChain.addBlock(new Block(1, { amount: 4 }));
+myChain.addBlock(new Block(2, { amount: 8 }));
 
 
-console.log('Blockchain valid? ' + savjeeCoin.isChainValid());
-
+console.log('Is Blockchain valid ? ' + myChain.isChainValid());
 console.log('Changing a block...');
-savjeeCoin.chain[1].data = { amount: 100 };
-// savjeeCoin.chain[1].hash = savjeeCoin.chain[1].calculateHash();
+myChain.chain[1].data = { amount: 100 };
+// myChain.chain[1].hash = myChain.chain[1].calculateHash();
 
-console.log("Blockchain valid? " + savjeeCoin.isChainValid());
-
-// console.log(JSON.stringify(savjeeCoin, null, 4));
+console.log("Is Blockchain valid ? " + myChain.isChainValid());
+myChain.printOut();
