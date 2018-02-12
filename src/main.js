@@ -81,3 +81,4 @@ console.log('Mining block 3...');
 myChain.addBlock(new Block(3, {amount: 5}));
 
 myChain.printOut();
+console.log('Chain validity is: ' + myChain.isChainValid());
