@@ -45,15 +45,7 @@ class Blockchain {
   }
 
   minePendingTransactions(miningRewardAddress) {
-    let block = new Block(this.pendingTransactions, this.getLatestBlock().hash);
-    block.mineBlock(this.difficulty);
-
-    console.log('Block successfully mined!');
-    this.chain.push(block);
-
-    this.pendingTransactions = [
-      new Transaction(null, miningRewardAddress, this.miningReward)
-    ];
+    //TODO
   }
 
   createTransaction(transaction) {
@@ -63,18 +55,7 @@ class Blockchain {
   getBalanceOfAddress(address) {
     let balance = 0;
 
-    for (const block of this.chain) {
-      for (const trans of block.transactions) {
-        if (trans.fromAddress === address) {
-          balance -= trans.amount;
-        }
-
-        if (trans.toAddress === address) {
-          balance += trans.amount;
-        }
-      }
-    }
-
+    //TODO
     return balance;
   }
 
