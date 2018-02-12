@@ -17,12 +17,7 @@ class Block {
 
   mineBlock(difficulty) {
     const startTime = new Date().getTime();
-
-    while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
-      this.nonce++;
-      this.hash = this.calculateHash();
-    }
-
+    //TODO
     console.log(`BLOCK MINED in ${(new Date().getTime() - startTime) / 1000} seconds: ${this.hash}`);
   }
 }
